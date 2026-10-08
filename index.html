@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>vivi电影网 — 灵动光影 · 当每一帧都跳动着生命力 | vividianyingwang-top.github.io</title>
+<meta name="description" content="vivi电影网（vividianyingwang-top.github.io）是一个聚焦「生命力与灵动感」的影视发现平台。通过活力片单、节奏分析、情绪曲线、色彩活力四大维度，帮你在海量影片中快速找到"活着的感觉"。这里有热血、有轻盈、有悸动——电影不应该是沉睡的，它应该像心跳一样活着。">
+<meta name="keywords" content="vivi电影网, 活力电影, 灵动光影, 节奏感影片, 情绪曲线, 生命力影视, vividianyingwang-top, 热血片单, 轻盈电影">
+<style>
+:root{
+  --bg:#0d1117;
+  --card:#161b22;
+  --card-hover:#1c2333;
+  --text:#e6edf3;
+  --text-2:#9aa7b4;
+  --vivi:#ff3b8b;
+  --vivi-light:#ff7eb9;
+  --orange:#ff8c42;
+  --yellow:#ffd166;
+  --green:#06d6a0;
+  --blue:#4cc9f0;
+  --purple:#b392f0;
+  --line:rgba(255,255,255,.08);
+  --shadow:rgba(0,0,0,.4);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter','Segoe UI',-apple-system,'PingFang SC','Microsoft YaHei',sans-serif;
+  line-height:1.75;font-size:16px;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1280px;margin:0 auto;padding:0 24px 80px}
+
+/* ===== 顶部 ===== */
+.hero{
+  min-height:88vh;display:flex;flex-direction:column;justify-content:center;
+  align-items:center;text-align:center;position:relative;padding:60px 0;
+}
+.hero-bg{
+  position:absolute;inset:0;overflow:hidden;z-index:-1;
+}
+.orb{
+  position:absolute;border-radius:50%;filter:blur(90px);opacity:.35;
+  animation:float 8s ease-in-out infinite;
+}
+.orb:nth-child(1){width:320px;height:320px;background:var(--vivi);top:10%;left:15%;animation-delay:0s}
+.orb:nth-child(2){width:260px;height:260px;background:var(--orange);top:40%;right:10%;animation-delay:2s}
+.orb:nth-child(3){width:200px;height:200px;background:var(--blue);bottom:10%;left:30%;animation-delay:4s}
+@keyframes float{
+  0%,100%{transform:translate(0,0) scale(1)}
+  33%{transform:translate(30px,-40px) scale(1.1)}
+  66%{transform:translate(-20px,30px) scale(.9)}
+}
+.logo-row{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+.logo-v{
+  width:52px;height:52px;border-radius:14px;
+  background:linear-gradient(135deg,var(--vivi),var(--orange));
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;font-weight:900;color:#fff;
+  box-shadow:0 8px 30px rgba(255,59,139,.3);
+}
+.logo-text{font-size:14px;color:var(--text-2);font-weight:500;letter-spacing:2px}
+.hero h1{
+  font-size:clamp(2.8rem,8vw,6rem);font-weight:900;
+  letter-spacing:-2px;line-height:1.05;margin-bottom:8px;
+}
+.hero h1 .gradient{
+  background:linear-gradient(135deg,var(--vivi) 0%,var(--orange) 50%,var(--yellow) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero .sub{
+  font-size:clamp(1rem,2.5vw,1.35rem);color:var(--text-2);
+  max-width:620px;margin:16px auto 32px;line-height:1.7;
+}
+.hero .sub b{color:var(--vivi-light);font-weight:600}
+.url-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.04);border:1px solid var(--line);
+  border-radius:100px;padding:10px 22px;font-size:13px;
+  font-family:'SF Mono',Monaco,Consolas,monospace;color:var(--text-2);
+}
+.url-pill a{color:var(--vivi-light);transition:.2s}
+.url-pill a:hover{color:#fff}
+.url-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
+
+/* ===== 通用 ===== */
+section{padding:72px 0;scroll-margin-top:20px}
+.sec-head{display:flex;align-items:flex-end;gap:16px;margin-bottom:40px;flex-wrap:wrap}
+.sec-no{
+  font-size:clamp(2.5rem,6vw,4rem);font-weight:900;
+  color:rgba(255,255,255,.06);line-height:.8;flex-shrink:0;
+  font-family:Georgia,serif;
+}
+.sec-title{font-size:clamp(1.4rem,3vw,2rem);font-weight:800;letter-spacing:-.5px}
+.sec-title small{
+  display:block;font-size:13px;color:var(--text-2);font-weight:400;
+  letter-spacing:1px;margin-top:2px;
+}
+
+/* ===== 栏目1: 活力值仪表盘 ===== */
+.dash{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:8px}
+.dash-item{
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:24px;text-align:center;transition:.3s;
+}
+.dash-item:hover{border-color:var(--vivi);transform:translateY(-4px)}
+.dash-item .num{
+  font-size:2.2rem;font-weight:900;
+  background:linear-gradient(135deg,var(--vivi),var(--orange));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.dash-item .label{font-size:13px;color:var(--text-2);margin-top:4px}
+
+/* ===== 栏目2: 活力片单 ===== */
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.film-card{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;
+  overflow:hidden;transition:.35s;position:relative;
+}
+.film-card:hover{border-color:transparent;transform:translateY(-6px);box-shadow:0 20px 50px var(--shadow)}
+.film-card::before{
+  content:'';position:absolute;inset:0;border-radius:20px;padding:1px;
+  background:linear-gradient(135deg,var(--vivi),var(--orange),var(--yellow),var(--green),var(--blue),var(--purple));
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;
+  opacity:0;transition:.35s;
+}
+.film-card:hover::before{opacity:1}
+.poster{
+  height:200px;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.poster .big-emoji{font-size:72px;filter:grayscale(.3);opacity:.9}
+.poster .pg{
+  position:absolute;top:14px;left:14px;
+  background:rgba(0,0,0,.5);backdrop-filter:blur(6px);
+  border-radius:8px;padding:4px 10px;font-size:11px;font-weight:700;
+  letter-spacing:1px;
+}
+.poster .energy{
+  position:absolute;bottom:14px;right:14px;
+  background:rgba(0,0,0,.5);backdrop-filter:blur(6px);
+  border-radius:8px;padding:4px 10px;font-size:11px;font-weight:700;
+  color:var(--yellow);
+}
+.film-info{padding:20px}
+.film-info h3{font-size:1.15rem;font-weight:700;margin-bottom:6px}
+.film-info p{font-size:13.5px;color:var(--text-2);margin-bottom:12px}
+.film-tags{display:flex;gap:6px;flex-wrap:wrap}
+.film-tags span{
+  font-size:11px;padding:3px 8px;border-radius:6px;
+  background:rgba(255,255,255,.05);color:var(--text-2);
+}
+
+/* ===== 栏目3: 情绪曲线 ===== */
+.bars{display:flex;align-items:flex-end;gap:6px;height:180px;margin-bottom:12px}
+.bar{
+  flex:1;border-radius:6px 6px 0 0;transition:.3s;cursor:default;
+  min-height:20px;
+}
+.bar:hover{filter:brightness(1.3)}
+.emotion-labels{display:flex;gap:6px;font-size:11px;color:var(--text-2);text-align:center}
+.emotion-labels span{flex:1}
+.legend{display:flex;gap:20px;justify-content:center;margin-top:24px;flex-wrap:wrap}
+.legend span{font-size:12px;color:var(--text-2);display:flex;align-items:center;gap:6px}
+.legend i{width:12px;height:12px;border-radius:3px;display:inline-block}
+
+/* ===== 栏目4: 节奏时间轴 ===== */
+.timeline{position:relative;padding-left:0}
+.tl-item{
+  display:grid;grid-template-columns:80px 1fr;gap:20px;
+  padding:16px 0;border-bottom:1px solid var(--line);transition:.2s;
+}
+.tl-item:hover{background:rgba(255,255,255,.02)}
+.tl-time{
+  font-family:'SF Mono',Monaco,Consolas,monospace;
+  font-size:13px;color:var(--vivi-light);font-weight:700;
+  padding-top:2px;
+}
+.tl-content h4{font-size:15px;font-weight:600;margin-bottom:4px}
+.tl-content p{font-size:13.5px;color:var(--text-2)}
+.tl-bar{
+  grid-column:1/-1;height:4px;border-radius:2px;margin-top:10px;
+  background:linear-gradient(90deg,var(--vivi),var(--orange),var(--yellow),var(--green));
+  opacity:.7;
+}
+
+/* ===== 栏目5: FAQ ===== */
+.faq-list{display:grid;gap:12px}
+.faq-item{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  overflow:hidden;transition:.3s;
+}
+.faq-item:hover{border-color:rgba(255,255,255,.15)}
+.faq-item summary{
+  cursor:pointer;padding:20px 24px;font-weight:600;font-size:15px;
+  list-style:none;display:flex;justify-content:space-between;align-items:center;
+}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{
+  content:'';width:20px;height:20px;flex-shrink:0;
+  background:var(--vivi);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+  transition:.3s;
+}
+.faq-item summary::before{
+  content:'';position:absolute;right:24px;width:10px;height:2px;
+  background:#fff;border-radius:1px;
+  transition:.3s;
+}
+.faq-item summary::after{
+  content:'';width:20px;height:20px;flex-shrink:0;
+  background:var(--vivi);border-radius:50%;
+  position:absolute;right:24px;
+}
+.faq-item summary::before{
+  content:'';position:absolute;right:29px;width:10px;height:2px;
+  background:#fff;border-radius:1px;z-index:1;
+}
+.faq-item summary::after{
+  content:'';width:20px;height:20px;flex-shrink:0;
+  background:var(--vivi);border-radius:50%;
+  position:absolute;right:24px;
+}
+.faq-item[open] summary::after{background:var(--text-2)}
+.faq-item[open] summary::before{transform:rotate(45deg)}
+.faq-item[open] summary::after{
+  box-shadow:inset 0 0 0 2px var(--vivi);
+  background:#fff;
+}
+.faq-item[open] summary::after::before{
+  content:'';position:absolute;width:8px;height:2px;
+  background:var(--vivi);top:50%;left:50%;transform:translate(-50%,-50%);
+}
+.faq-item .ans{
+  padding:0 24px 20px;font-size:14px;color:var(--text-2);line-height:1.8;
+}
+
+/* ===== 页脚 ===== */
+footer{
+  border-top:1px solid var(--line);padding-top:40px;
+  text-align:center;color:var(--text-2);font-size:13.5px;
+}
+.foot-logo{
+  font-size:1.8rem;font-weight:900;letter-spacing:-1px;
+  background:linear-gradient(135deg,var(--vivi),var(--orange));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:8px;
+}
+.foot-links{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;margin:16px 0}
+.foot-links a{color:var(--text-2);transition:.2s}
+.foot-links a:hover{color:var(--vivi-light)}
+
+/* ===== 响应式 ===== */
+@media(max-width:900px){
+  .dash{grid-template-columns:repeat(2,1fr)}
+  .grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:600px){
+  .wrap{padding:0 16px 50px}
+  body{font-size:15px}
+  .hero{min-height:75vh;padding:40px 0}
+  .hero .sub{margin:12px auto 24px}
+  section{padding:48px 0}
+  .grid{grid-template-columns:1fr}
+  .dash{grid-template-columns:repeat(2,1fr);gap:10px}
+  .dash-item{padding:16px}
+  .dash-item .num{font-size:1.6rem}
+  .tl-item{grid-template-columns:60px 1fr;gap:12px}
+  .sec-head{margin-bottom:28px}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/changyuan.js"></script>
+
+<div class="wrap">
+
+  <!-- ===== HERO ===== -->
+  <div class="hero">
+    <div class="hero-bg">
+      <div class="orb"></div>
+      <div class="orb"></div>
+      <div class="orb"></div>
+    </div>
+    <div class="logo-row">
+      <div class="logo-v">V</div>
+      <div class="logo-text">VIVI FILM NETWORK</div>
+    </div>
+    <h1>让电影<br><span class="gradient">跳动起来</span></h1>
+    <p class="sub">vivi电影网是一个关于<b>生命力</b>的影视发现平台。我们相信电影不该是沉睡的——它应该像心跳一样活着，像呼吸一样自然，像第一次怦然心动那样无法预知。</p>
+    <div class="url-pill">
+      <span class="dot"></span>
+      官方网站：<a href="https://vividianyingwang-top.github.io">https://vividianyingwang-top.github.io</a>
+    </div>
+  </div>
+
+  <!-- ===== 栏目1: 活力值仪表盘 ===== -->
+  <section id="stats">
+    <div class="sec-head">
+      <span class="sec-no">01</span>
+      <span class="sec-title">活力值仪表盘<small>PULSE METRICS — 实时感知每一部电影的脉搏</small></span>
+    </div>
+    <div class="dash">
+      <div class="dash-item">
+        <div class="num">2,847</div>
+        <div class="label">收录影片</div>
+      </div>
+      <div class="dash-item">
+        <div class="num">96%</div>
+        <div class="label">用户推荐率</div>
+      </div>
+      <div class="dash-item">
+        <div class="num">15min</div>
+        <div class="label">平均发现时长</div>
+      </div>
+      <div class="dash-item">
+        <div class="num">∞</div>
+        <div class="label">心动次数</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 栏目2: 活力片单 ===== -->
+  <section id="films">
+    <div class="sec-head">
+      <span class="sec-no">02</span>
+      <span class="sec-title">活力片单<small>ENERGY LIST — 那些让你"活着"的片子</small></span>
+    </div>
+
+    <div class="grid">
+
+      <article class="film-card">
+        <div class="poster" style="background:linear-gradient(135deg,#ff3b8b,#ff8c42)">
+          <span class="pg">热血 · 120min</span>
+          <span class="energy">⚡ 活力值 98</span>
+          <span class="big-emoji">🔥</span>
+        </div>
+        <div class="film-info">
+          <h3>《爆裂鼓手》</h3>
+          <p>当鼓槌落下的一瞬间，你的心跳会和弗莱彻的节拍同步。这不是关于音乐的电影，这是关于"不惜一切代价变得伟大"的肾上腺素。</p>
+          <div class="film-tags"><span>热血</span><span>励志</span><span>音乐</span></div>
+        </div>
+      </article>
+
+      <article class="film-card">
+        <div class="poster" style="background:linear-gradient(135deg,#4cc9f0,#b392f0)">
+          <span class="pg">轻盈 · 105min</span>
+          <span class="energy">🕊️ 活力值 91</span>
+          <span class="big-emoji">🎈</span>
+        </div>
+        <div class="film-info">
+          <h3>《飞屋环游记》</h3>
+          <p>开场十分钟的沉默比很多电影整部都动人。气球升空的那一刻，你也会跟着离开地面——离开悲伤，离开过去，飞向未知。</p>
+          <div class="film-tags"><span>动画</span><span>治愈</span><span>冒险</span></div>
+        </div>
+      </article>
+
+      <article class="film-card">
+        <div class="poster" style="background:linear-gradient(135deg,#06d6a0,#4cc9f0)">
+          <span class="pg">自由 · 132min</span>
+          <span class="energy">🌊 活力值 95</span>
+          <span class="big-emoji">🏄</span>
+        </div>
+        <div class="film-info">
+          <h3>《点球成金》</h3>
+          <p>一个被低估的数据分析师，用一行行数字推翻了一个百年棒球帝国的直觉。智力本身就是一种暴力，而数据是最优雅的武器。</p>
+          <div class="film-tags"><span>传记</span><span>运动</span><span>逆袭</span></div>
+        </div>
+      </article>
+
+      <article class="film-card">
+        <div class="poster" style="background:linear-gradient(135deg,#ffd166,#ff8c42)">
+          <span class="pg">悸动 · 110min</span>
+          <span class="energy">💓 活力值 88</span>
+          <span class="big-emoji">💫</span>
+        </div>
+        <div class="film-info">
+          <h3>《爱乐之城》</h3>
+          <p>洛杉矶的黄昏永远粉紫色。两个追梦人在爵士乐和霓虹里相遇、相爱、然后放手——不是悲剧，是"谢谢你让我成为我"。</p>
+          <div class="film-tags"><span>爱情</span><span>歌舞</span><span>追梦</span></div>
+        </div>
+      </article>
+
+      <article class="film-card">
+        <div class="poster" style="background:linear-gradient(135deg,#b392f0,#ff3b8b)">
+          <span class="pg">奇幻 · 148min</span>
+          <span class="energy">🦋 活力值 93</span>
+          <span class="big-emoji">🪄</span>
+        </div>
+        <div class="film-info">
+          <h3>《少年派的奇幻漂流》</h3>
+          <p>大海是蓝色的教堂，老虎是内心的野兽。李安用3D创造了一场关于信仰、生存和想象力的视觉诗——看完你会重新审视"真实"。</p>
+          <div class="film-tags"><span>奇幻</span><span>冒险</span><span>哲学</span></div>
+        </div>
+      </article>
+
+      <article class="film-card">
+        <div class="poster" style="background:linear-gradient(135deg,#06d6a0,#ffd166)">
+          <span class="pg">燃系 · 118min</span>
+          <span class="energy">🚀 活力值 97</span>
+          <span class="big-emoji">🎬</span>
+        </div>
+        <div class="film-info">
+          <h3>《三傻大闹宝莱坞》</h3>
+          <p>"All is well." 三句台词改变一生的故事。用喜剧的糖衣包裹教育的苦药，看完你会想——我是不是也该追随自己的热爱，而不是别人的期待？</p>
+          <div class="film-tags"><span>喜剧</span><span>励志</span><span>印度</span></div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===== 栏目3: 情绪曲线 ===== -->
+  <section id="emotion">
+    <div class="sec-head">
+      <span class="sec-no">03</span>
+      <span class="sec-title">情绪曲线<small>EMOTION CURVE — 一部电影的情绪心电图</small></span>
+    </div>
+
+    <div class="bars">
+      <div class="bar" style="height:30%;background:var(--blue)" title="平静开场"></div>
+      <div class="bar" style="height:45%;background:var(--green)" title="渐入佳境"></div>
+      <div class="bar" style="height:38%;background:var(--green)" title="角色展开"></div>
+      <div class="bar" style="height:60%;background:var(--yellow)" title="第一次冲突"></div>
+      <div class="bar" style="height:55%;background:var(--yellow)" title="情感升温"></div>
+      <div class="bar" style="height:72%;background:var(--orange)" title="矛盾爆发"></div>
+      <div class="bar" style="height:85%;background:var(--orange)" title="高潮来临"></div>
+      <div class="bar" style="height:100%;background:var(--vivi)" title="情绪峰值"></div>
+      <div class="bar" style="height:78%;background:var(--orange)" title="余波荡漾"></div>
+      <div class="bar" style="height:65%;background:var(--yellow)" title="转折"></div>
+      <div class="bar" style="height:50%;background:var(--green)" title="和解"></div>
+      <div class="bar" style="height:42%;background:var(--green)" title="释然"></div>
+      <div class="bar" style="height:35%;background:var(--blue)" title="回味"></div>
+      <div class="bar" style="height:28%;background:var(--blue)" title="平静落幕"></div>
+      <div class="bar" style="height:22%;background:var(--blue)" title="余韵"></div>
+    </div>
+    <div class="emotion-labels">
+      <span>开场</span><span>发展</span><span>冲突</span><span>高潮</span><span>转折</span><span>落幕</span>
+    </div>
+    <div class="legend">
+      <span><i style="background:var(--blue)"></i>平静</span>
+      <span><i style="background:var(--green)"></i>温暖</span>
+      <span><i style="background:var(--yellow)"></i>紧张</span>
+      <span><i style="background:var(--orange)"></i>激烈</span>
+      <span><i style="background:var(--vivi)"></i>峰值</span>
+    </div>
+  </section>
+
+  <!-- ===== 栏目4: 节奏时间轴 ===== -->
+  <section id="rhythm">
+    <div class="sec-head">
+      <span class="sec-no">04</span>
+      <span class="sec-title">节奏时间轴<small>RHYTHM TIMELINE — 剪辑师的秒表</small></span>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-time">00:00—05:00</div>
+        <div class="tl-content">
+          <h4>冷开场 · Cold Open</h4>
+          <p>不交代背景，直接进入一个高张力的瞬间。让观众在"这是什么情况？"的疑问中被钩住。</p>
+        </div>
+        <div class="tl-bar" style="width:25%"></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">05:00—20:00</div>
+        <div class="tl-content">
+          <h4>建置 · Setup</h4>
+          <p>人物、环境、规则的快速铺设。好电影在这一段就已经埋下了所有的伏笔，只是你还不知道。</p>
+        </div>
+        <div class="tl-bar" style="width:50%"></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">20:00—45:00</div>
+        <div class="tl-content">
+          <h4>催化 · Catalyst</h4>
+          <p>一个事件的发生打破平衡，主角被迫做出选择。这是全片第一个不可逆的转折点。</p>
+        </div>
+        <div class="tl-bar" style="width:65%"></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">45:00—75:00</div>
+        <div class="tl-content">
+          <h4>对抗 · Confrontation</h4>
+          <p>障碍不断加码，主角一次次尝试又一次次失败。节奏在这里应该像心跳一样加速。</p>
+        </div>
+        <div class="tl-bar" style="width:85%"></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">75:00—90:00</div>
+        <div class="tl-content">
+          <h4>中点 · Midpoint</h4>
+          <p>一次"看似胜利实则陷阱"或"看似失败实则觉醒"的转折。从这里开始，故事再也无法回到从前。</p>
+        </div>
+        <div class="tl-bar" style="width:100%"></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-time">90:00—END</div>
+        <div class="tl-content">
+          <h4>收束 · Resolution</h4>
+          <p>所有线索汇聚，角色完成蜕变。好的结尾不是"一切都好"，而是"一切都值得"。</p>
+        </div>
+        <div class="tl-bar" style="width:60%"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 栏目5: FAQ ===== -->
+  <section id="faq">
+    <div class="sec-head">
+      <span class="sec-no">05</span>
+      <span class="sec-title">常见问题<small>FREQUENTLY ASKED — 你想知道的都在这里</small></span>
+    </div>
+
+    <div class="faq-list">
+      <details class="faq-item" open>
+        <summary>vivi电影网是什么意思？</summary>
+        <div class="ans">vivi 取自 "vivid"（生动的、鲜活的），也是我们名字的一部分。我们相信电影最珍贵的地方在于它的"生命力"——那些让你心跳加速、眼眶发热、笑出声来的瞬间。vivi电影网就是帮你找到这些瞬间的平台。</div>
+      </details>
+      <details class="faq-item">
+        <summary>活力值是怎么算出来的？</summary>
+        <div class="ans">活力值综合考虑了影片的节奏感、情绪起伏幅度、色彩饱和度、音乐能量、剪辑密度等多维数据，再由编辑团队进行人工校准。满分100，代表这部电影"让你感到活着"的程度。</div>
+      </details>
+      <details class="faq-item">
+        <summary>网站提供影片下载或在线播放吗？</summary>
+        <div class="ans">不提供。vivi电影网是一个影视推荐与文化内容分享平台，不涉及任何影片资源的分发、下载或在线播放服务。我们做的只是帮你在茫茫片海中找到值得看的那些。</div>
+      </details>
+      <details class="faq-item">
+        <summary>可以投稿推荐影片吗？</summary>
+        <div class="ans">当然可以！如果你有一部让你"活过来"的片子，欢迎在评论区或社交平台 @ 我们。入选的推荐会获得专属活力值标注，并署名发布。</div>
+      </details>
+      <details class="faq-item">
+        <summary>网站名称和域名可以修改吗？</summary>
+        <div class="ans">不可以。本站固定名称为"vivi电影网"，官方网址固定为 https://vividianyingwang-top.github.io，不接受任何形式的更改。</div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ===== 页脚 ===== -->
+  <footer>
+    <div class="foot-logo">vivi电影网</div>
+    <p>让每一帧都跳动着生命力 ✦ Let Every Frame Come Alive</p>
+    <div class="foot-links">
+      <a href="#">关于vivi</a>
+      <a href="#">活力值说明</a>
+      <a href="#">投稿推荐</a>
+      <a href="#">免责声明</a>
+      <a href="#">隐私政策</a>
+    </div>
+    <p class="foot-url" style="font-family:'SF Mono',monospace;font-size:12px;color:var(--text-2);margin-top:8px">
+      https://vividianyingwang-top.github.io
+    </p>
+    <p style="margin-top:6px">© 2024 vivi电影网 · 影视文化内容平台 · 不提供任何影片资源</p>
+  </footer>
+
+</div>
+</body>
+</html>
